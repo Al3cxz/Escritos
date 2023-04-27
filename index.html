@@ -1,12 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+<html>
+  <head>
+    <title>Inicio</title>
+    <style>
+      body {
+        background: linear-gradient(to bottom, #feac5e, #c779d0, #4bc0c8);
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        color: white;
+        font-family: sans-serif;
+        font-size: 1.2em;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 4em;
+        margin-top: 20%;
+        position: relative;
+        animation: typing 3s steps(10, end);
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      /* Estilo para el botón */
+      button {
+        background-color: transparent;
+        border: 3px solid white;
+        border-radius: 25px;
+        color: white;
+        cursor: pointer;
+        font-size: 1.2em;
+        margin-top: 50px;
+        padding: 10px 20px;
+        position: relative;
+        text-transform: uppercase;
+        z-index: 1;
+        overflow: hidden;
+      }
+
+      /* Estilo para el brillo alrededor del botón */
+      button:before {
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 70%);
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        opacity: 0;
+        transition: 0.3s ease;
+        z-index: -1;
+      }
+
+      button:hover:before {
+        opacity: 1;
+        width: 200%;
+        height: 200%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Bienvenido a mi sitio</h1>
+    <button onclick="window.location.href='poemas.html'">Poemas</button>
+  </body>
 </html>
