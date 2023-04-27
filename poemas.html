@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Poemas</title>
+  </head>
+  <body>
+    <h1>Poemas</h1>
+    <textarea id="poema"></textarea>
+    <br />
+    <button id="guardar" onclick="guardarPoema()" >Guardar</button>
+    <br />
+
+
+    <h2>Poemas guardados:</h2>
+    <ul id="poemasGuardados"></ul>
+
+    <button id="borrar" onclick="borrarPoema()">Borrar poema seleccionado</button>
+
+    <script>
+      function guardarPoema() {
+        const poema = document.getElementById("poema").value;
+        localStorage.setItem(Date.now(), poema);
+        mostrarPoemas();
+      }
+
+      function mostrarPoemas() {
+        const lista = document.getElementById("poemasGuardados");
+        lista.innerHTML = "";
+        for (let i = 0; i < localStorage.length; i++) {
+          const clave = localStorage.key(i);
+          const poema = localStorage.getItem(clave);
+          const li = document.createElement("li");
+          li.setAttribute("data-clave", clave); // Agregar atributo data-clave
+          li.innerText = poema;
+          lista.appendChild(li);
+        }
+      }
+
+      function borrarPoema() {
+        const lista = document.getElementById("poemasGuardados");
+        const seleccionado = lista.querySelector("li.selected");
+        if (seleccionado) {
+          const clave = seleccionado.getAttribute("data-clave");
+          localStorage.removeItem(clave);
+          mostrarPoemas();
+        } else {
+          alert("Por favor selecciona un poema para borrar.");
+        }
+      }
+
+      // Agregar listener de click a cada poema en la lista
+      const lista = document.getElementById("poemasGuardados");
+      lista.addEventListener("click", function (evento) {
+        const poema = evento.target;
+        if (poema.tagName === "LI") {
+          // Remover clase selected de todos los elementos
+          const elementos = lista.getElementsByTagName("li");
+          for (let i = 0; i < elementos.length; i++) {
+            elementos[i].classList.remove("selected");
+          }
+
+          // Agregar clase selected al elemento seleccionado
+          poema.classList.add("selected");
+        }
+      });
+      
+      mostrarPoemas();
+    </script>
+    <style>
+      .selected {
+        background-color: yellow;
+      }
+      
+      body {
+        background: linear-gradient(to bottom, #feac5e, #c779d0, #4bc0c8);
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        color: white;
+        font-family: sans-serif;
+        font-size: 1.2em;
+        text-align: center;
+      }
+
+      /* Estilo para la caja de texto */
+      textarea {
+        background-color: rgba(255, 255, 255, 0.7);
+        border: none;
+        border-radius: 10px;
+        box-shadow: inset 0 0 10px #000000;
+        color: black;
+        font-size: 1em;
+        height: 200px;
+        margin: 20px auto;
+        padding: 10px;
+        width: 80%;
+      }
+
+      /* Estilo para el botón "Guardar" */
+      #guardar {
+        background-color: rgba(255, 255, 255, 0.7);
+        border: none;
+        border-radius: 10px;
+        color: black;
+        cursor: pointer;
+        font-size: 1.2em;
+        margin: 10px;
+        padding: 10px 20px;
+        transition: 0.3s;
+      }
+
+      #guardar:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 0 5px white;
+      }
+
+      /* Estilo para el botón "Borrar" */
+      #borrar {
+        background-color: rgba(255, 255, 255, 0.7);
+        border: none;
+        border-radius: 10px;
+        color: black;
+        cursor: pointer;
+        font-size: 1.2em;
+        margin: 10px;
+        padding: 10px 20px;
+        transition: 0.3s;
+      }
+
+      #borrar:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 0 5px white;
+      }
+
+      /* Estilo para la lista de poemas */
+      #poemas {
+        display: flex;
+        flex-direction: column;
+        margin: 20px auto;
+        width: 80%;
+      }
+
+      #poemas li {
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 10px;
+        color: black;
+        font-size: 1.2em;
+        list-style: none;
+        margin: 10px;
+        padding: 10px;
+        text-align: left;
+      }
+    
+    </style>
+  </body>
+</html>
